@@ -1,6 +1,11 @@
 
-import React, { createContext, useCallback, useState } from 'react';
+import React, { createContext, useCallback, useContext, useState } from 'react';
+
+import { ChatContext } from '../context/chat/chatContext';
+import { SalaContext } from '../context/sala/salaContext';
 import { fetchConToken, fetchSinToken } from '../helpers/fetch';
+
+import { types } from '../types/types';
 
 export const AuthContext = createContext();
 
@@ -17,13 +22,18 @@ const initialState = {
 export const AuthProvider = ( { children } ) => {
 
     const [ auth, setAuth ] = useState( initialState );
+    const { dispatch } = useContext( ChatContext );
+    const { dispatchSala } = useContext( SalaContext );
 
     const login = async ( usuario, password ) => {
         const resp = await fetchSinToken( "/auth/login", { usuario, password }, 'POST' );
-        console.log(resp)
         if ( resp.response === 1 ) {
+
+            dispatchSala( { type: types.getSala, payload: resp.array_sala, } );
+
             localStorage.setItem( "token", resp.token );
             const { usuario } = resp;
+
             setAuth( {
                 uid: usuario.uid,
                 checking: false,
@@ -40,10 +50,13 @@ export const AuthProvider = ( { children } ) => {
 
     const register = async ( nombre, apellido, email, usuario, password ) => {
         const resp = await fetchSinToken( "/auth/register", { nombre, apellido, email, usuario, password }, 'POST' );
-        console.log(resp)
         if ( resp.response === 1 ) {
+
+            dispatchSala( { type: types.getSala, payload: resp.array_sala, } );
+            
             localStorage.setItem( "token", resp.token );
             const { usuario } = resp;
+
             setAuth( {
                 uid: usuario.uid,
                 checking: false,
@@ -61,6 +74,8 @@ export const AuthProvider = ( { children } ) => {
     const verificaToken = useCallback( async () => {
         const token = localStorage.getItem('token');
         if ( !token ) {
+            dispatchSala( { type: types.limpiarSala } );
+            dispatch( { type: types.limpiarChat } );
             setAuth( {
                 uid: null,
                 checking: false,
@@ -74,11 +89,15 @@ export const AuthProvider = ( { children } ) => {
         }
 
         const resp = await fetchConToken( "/auth/newToken");
+        console.log(resp);
 
-        console.log(resp)
         if ( resp.response === 1 ) {
+
             localStorage.setItem( "token", resp.token );
             const { usuario } = resp;
+
+            dispatchSala( { type: types.getSala, payload: resp.array_sala, } );
+            
             setAuth( {
                 uid: usuario.uid,
                 checking: false,
@@ -88,8 +107,14 @@ export const AuthProvider = ( { children } ) => {
                 usuario: usuario.usuario,
                 email: usuario.email,
             } );
+
             return true;
         }
+
+        dispatchSala( { type: types.limpiarSala } );
+        dispatch( { type: types.limpiarChat } );
+
+        localStorage.removeItem("token");
         setAuth( {
             uid: null,
             checking: false,
@@ -102,10 +127,14 @@ export const AuthProvider = ( { children } ) => {
 
         return false;
 
-    }, [] );
+    }, [ dispatchSala, dispatch ] );
 
     const logout = ( ) => {
         localStorage.removeItem("token");
+
+        dispatch( { type: types.limpiarChat } );
+        dispatchSala( { type: types.limpiarSala } );
+
         setAuth( {
             uid: null,
             checking: false,

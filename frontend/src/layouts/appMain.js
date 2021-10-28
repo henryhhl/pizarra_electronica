@@ -45,23 +45,17 @@ export const AppMain = ( props ) => {
                     </div>
                 </Header>
                 <div style={{ backgroundColor: '#FFF', padding: 0, }}>
-                    <Menu theme="light" mode="horizontal" defaultSelectedKeys={['1']}>
-                        <Menu.Item key="1">
+                    <Menu theme="light" mode="horizontal" activeKey={props.keyMenu}>
+                        <Menu.Item key="1" onClick={ () => props.setKeyMenu('1') }>
                             Inicio
                         </Menu.Item>
-                        <Menu.Item key="2">
-                            Sala
-                        </Menu.Item>
-                        <Menu.Item key="3">
+                        <Menu.Item key="2" onClick={ () => props.setKeyMenu('2') }>
                             Nueva Sala
-                        </Menu.Item>
-                        <Menu.Item key="4">
-                            Pizarra Virtual
                         </Menu.Item>
                     </Menu>
                 </div>
                 <Content style={{ margin: '24px 16px 0', }}>
-                    <div style={{ padding: 24, minHeight: 360, height: 450, backgroundColor: '#FFF', }}>
+                    <div style={{ padding: 24, minHeight: 450, height: 470, backgroundColor: '#FFF', }}>
                         { props.children }
                     </div>
                 </Content>

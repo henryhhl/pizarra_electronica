@@ -3,8 +3,10 @@ const { response } = require( "express" );
 const bcrypt = require( "bcryptjs" );
 
 const Usuario = require( "../models/Usuario" );
+const Sala = require( "../models/Sala" );
 
 const { generarJWT } = require("../helpers/jwt");
+const { getSala } = require("./socketController");
 
 const registerUsuario = async ( request, resp = response ) => {
 
@@ -20,19 +22,21 @@ const registerUsuario = async ( request, resp = response ) => {
             } );
         }
 
-        const users = new Usuario( request.body );
+        const user = new Usuario( request.body );
 
         const salt = bcrypt.genSaltSync();
-        users.password = bcrypt.hashSync( password, salt );
+        user.password = bcrypt.hashSync( password, salt );
 
-        await users.save();
+        await user.save();
 
-        const token = await generarJWT( users.id );
+        const token = await generarJWT( user.id );
+        const salas = await getSala( user.id );
 
         return resp.json( {
             response: 1,
             message: "Usuario creado exitosamente",
-            usuario: users,
+            usuario: user,
+            array_sala: salas,
             token: token,
         } );
 
@@ -68,12 +72,14 @@ const login = async ( request, resp = response ) => {
         }
 
         const token = await generarJWT( user.id );
+        const salas = await getSala( user.id );
 
         return resp.json( {
             response: 1,
             message: "Usuario autenticado exitosamente",
             usuario: user,
             token: token,
+            array_sala: salas,
         } );
 
     } catch (error) {
@@ -92,11 +98,21 @@ const renewToken = async ( request, resp = response ) => {
 
     const user = await Usuario.findById( uid );
 
+    if ( !user ) {
+        return resp.json( {
+            response: -1,
+            message: "Usuario no existente",
+        } );
+    }
+
+    const salas = await getSala( uid );
+
     return resp.json( {
         response: 1,
         message: "Token generado exitosamente",
         usuario: user,
         token: token,
+        array_sala: salas,
     } );
 };
 

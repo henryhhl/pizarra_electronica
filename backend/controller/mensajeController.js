@@ -21,10 +21,10 @@ const showMensaje = async ( request, resp = response ) => {
 
         const messages = await Mensaje.find( {
             $or: [
-                { de: miId, para: mensajesDe },
-                { de: mensajesDe, para: miId },
+                { de: miId, para: idusersDe },
+                { de: idusersDe, para: miId },
             ]
-        } ) . sort( { createdAt: 'desc' } );
+        } ) . sort( { createdAt: 'asc' } );
 
         return resp.json( {
             response: 1,

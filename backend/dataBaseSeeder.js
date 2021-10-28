@@ -4,11 +4,21 @@ require( "dotenv" ).config();
 const usuarioData = require( "./data/UsuarioData" );
 const Usuario = require( "./models/Usuario" );
 
+const Mensaje = require( "./models/Mensaje" );
+
+const Sala = require( "./models/Sala" );
+const SalaUsuario = require( "./models/SalaUsuario" );
+
 const connectDB = require( "./config/db" );
 connectDB();
 
 const importData = async () => {
     try {
+        await SalaUsuario.deleteMany( {} );
+        await Sala.deleteMany( {} );
+
+        await Mensaje.deleteMany( {} );
+
         await Usuario.deleteMany( {} );
         await Usuario.insertMany( usuarioData );
 

@@ -7,15 +7,20 @@ const SalaSchema = new mongoose.Schema( {
         type: String,
         required: true,
     },
-    codigo: {
+    fkidusers: {
+        type: mongoose.Types.ObjectId,
+        ref: "users",
+        required: true,
+    },
+    usuario: {
         type: String,
         required: true,
     },
-    nota: {
-        type: String,
-        required: false,
+    iniciar: {
+        type: Boolean,
+        default: false,
+        required: true,
     },
-
 }, {
     timestamps: true,
 } );

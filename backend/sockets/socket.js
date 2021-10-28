@@ -1,7 +1,7 @@
 
 const { io } = require( "../server" );
 
-const { usuarioConectado, usuarioDesconectado, getUsuarios } = require("../controller/socketController");
+const { usuarioConectado, usuarioDesconectado, getUsuarios, guardarMensaje, getSala, guardarSala, iniciarSala } = require("../controller/socketController");
 const { verificarJWT } = require("../helpers/jwt");
 
 io.on( 'connection', async ( client ) => {
@@ -15,10 +15,39 @@ io.on( 'connection', async ( client ) => {
     }
 
     const usuarioCon = await usuarioConectado( uid );
+    
+    // unir al usuario a una sala de socket
+    client.join( uid );
+
+    // io.to('sala-grupo').emit('');
+
+    // Escuchar cuando el cliente manda mensaje
+    client.on( 'mensaje-personal', async ( payload ) => {
+        const mensaje = await guardarMensaje( payload );
+        io.to( payload.para ).emit( 'mensaje-personal', mensaje );
+        io.to( payload.de ).emit( 'mensaje-personal', mensaje );
+    } );
+
+
+    client.on( 'store-sala', async ( payload ) => {
+        const sala = await guardarSala( payload );
+        io.emit( 'sala-creada', sala );
+    } );
+
+    client.on( 'iniciar-sala', async ( payload ) => {
+        await iniciarSala( payload.uid );
+        io.emit( 'sala-actualizada', payload );
+    } );
+
+    client.on( 'getSala', async ( payload ) => {
+        io.to( payload ).emit( 'getSala', await getSala(payload) );
+    } );
 
     console.log( "Cliente conectado" );
 
     io.emit( 'getUsuario', await getUsuarios() );
+
+    // io.to( uid ).emit( 'getSala', await getSala(uid) );
 
     client.on( 'disconnect', async () => {
         console.log( "Cliente desconectado" );
