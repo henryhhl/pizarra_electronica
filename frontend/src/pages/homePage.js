@@ -20,7 +20,6 @@ export const HomePage = ( props ) => {
     const history = useHistory();
 
     const [ nombreSala, setNombreSala ] = useState('');
-    const [ disabledSala, setDisabledSala ] = useState(false);
 
     const { chatState, dispatch } = useContext( ChatContext );
     const { auth } = useContext( AuthContext );
@@ -231,7 +230,6 @@ export const HomePage = ( props ) => {
                             </Row>
                             <Row gutter={ [ 12, 8 ] } justify="start" style={{ marginTop: 10, }}>
                                 <Button type="primary" style={{ backgroundColor: '#00ba8b', }}
-                                    disabled={disabledSala}
                                     onClick={onSubmitSala}
                                 >
                                     Guardar

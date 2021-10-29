@@ -1,7 +1,7 @@
 
 const { io } = require( "../server" );
 
-const { usuarioConectado, usuarioDesconectado, getUsuarios, guardarMensaje, getSala, guardarSala, iniciarSala } = require("../controller/socketController");
+const { usuarioConectado, usuarioDesconectado, getUsuarios, guardarMensaje, getSala, guardarSala, iniciarSala, finalizarSala } = require("../controller/socketController");
 const { verificarJWT } = require("../helpers/jwt");
 
 io.on( 'connection', async ( client ) => {
@@ -31,11 +31,17 @@ io.on( 'connection', async ( client ) => {
 
     client.on( 'store-sala', async ( payload ) => {
         const sala = await guardarSala( payload );
-        io.emit( 'sala-creada', sala );
+        console.log(sala)
+        io.emit( 'sala-actualizada', sala );
     } );
 
     client.on( 'iniciar-sala', async ( payload ) => {
         await iniciarSala( payload.uid );
+        io.emit( 'sala-actualizada', payload );
+    } );
+
+    client.on( 'finalizar-sala', async ( payload ) => {
+        await finalizarSala( payload.uid );
         io.emit( 'sala-actualizada', payload );
     } );
 

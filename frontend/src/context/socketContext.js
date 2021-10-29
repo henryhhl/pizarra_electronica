@@ -34,23 +34,18 @@ export const SocketProvider = ( { children } ) => {
 
     useEffect( () => {
         socket?.on( 'getUsuario', ( users ) => {
-            console.log(users)
             dispatch( { type: types.getUsuario, payload: users, } );
         } );
     }, [ socket, dispatch ] );
 
     useEffect( () => {
-        socket?.on( 'sala-actualizada', ( sala ) => {
-            console.log(sala);
-
+        socket?.on( 'sala-actualizada', ( ) => {
             socket?.emit( 'getSala', auth.uid );
-
         } );
     }, [ socket, dispatch ] );
 
     useEffect( () => {
         socket?.on( 'getSala', ( salas ) => {
-            console.log(salas)
             dispatchSala( { type: types.getSala, payload: salas, } );
         } );
     }, [ socket, dispatchSala ] );

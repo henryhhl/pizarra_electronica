@@ -17,7 +17,7 @@ export const HomeRoute = () => {
     return (
         <Switch>
             
-            <Route exact path="/pizarra_virtual/:uidusuario" render={ 
+            <Route exact path="/pizarra_virtual/:uidsala" render={ 
                 ( props ) => <PizarraVirtualPage { ...props } /> } 
             />
             <Route history={history}>

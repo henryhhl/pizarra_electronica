@@ -32,6 +32,7 @@ app.use( express.json() );
 app.use( "/api/auth", require( "./routes/authRoutes" ) );
 app.use( "/api/usuario", require( "./routes/usuarioRoutes" ) );
 app.use( "/api/mensaje", require( "./routes/mensajeRoutes" ) );
+app.use( "/api/sala", require( "./routes/salaRoutes" ) );
 
 const PORT = process.env.PORT || 5000;
 

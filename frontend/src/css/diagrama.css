@@ -1,11 +1,49 @@
 
-#diagramContainer {
+.container {
     padding: 0;
     margin: 0;
     width: 100%;
+    max-width: 100%;
+    min-width: 100%;
     height: 100vh;
     /* background-image: url("../img/diagram_fondo.jpg");
     background-size: 100% 100%; */
     background-color: #FBFCFC;
     position: relative;
+    display: block;
+}
+
+#diagramContainer {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    height: 90%;
+    /* background-image: url("../img/diagram_fondo.jpg");
+    background-size: 100% 100%; */
+    background-color: #FBFCFC;
+    position: relative;
+}
+
+#diagramContainer .itemContainer {
+    position: relative;
+    width: 105px;
+    height: 75px;
+    left: 10px;
+    top: 20px;
+    background-color: white;
+    cursor: move;
+}
+
+.footerContainer {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    height: 10%;
+    background-color: white;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid #E8E8E8;
+    padding: 0 30px
 }

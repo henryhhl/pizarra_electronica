@@ -67,6 +67,15 @@ const iniciarSala = async ( uid ) => {
     return sala;
 };
 
+const finalizarSala = async ( uid ) => {
+
+    const sala = await Sala.findById( uid );
+    sala.iniciar = false;
+    await sala.save();
+
+    return sala;
+};
+
 const getSala = async ( uid ) => {
 
     const user = await Usuario.findById( uid );
@@ -134,4 +143,5 @@ module.exports = {
     getSala,
     guardarSala,
     iniciarSala,
+    finalizarSala,
 };
