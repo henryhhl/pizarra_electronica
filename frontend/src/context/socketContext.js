@@ -9,6 +9,7 @@ import { useSocket } from '../hooks/useSocket';
 
 import { types } from '../types/types';
 import { scrollToBottom } from '../helpers/scroll';
+import { TableContext } from './table/TableContext';
 
 export const SocketContet = createContext();
 
@@ -19,6 +20,7 @@ export const SocketProvider = ( { children } ) => {
     const { auth } = useContext( AuthContext );
     const { dispatch } = useContext( ChatContext );
     const { dispatchSala } = useContext( SalaContext );
+    const { dispatchTable } = useContext( TableContext );
 
     useEffect( () => {
         if ( auth.logged ) {
@@ -49,6 +51,14 @@ export const SocketProvider = ( { children } ) => {
             dispatchSala( { type: types.getSala, payload: salas, } );
         } );
     }, [ socket, dispatchSala ] );
+
+
+    useEffect( () => {
+        socket?.on( 'ingresar-sala', ( tables ) => {
+            // console.log( "Tables: ", tables )
+            dispatchTable( { type: types.getTable, payload: tables, } );
+        } );
+    }, [ socket, dispatchTable ] );
 
 
     useEffect( () => {

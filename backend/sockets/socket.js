@@ -1,7 +1,7 @@
 
 const { io } = require( "../server" );
 
-const { usuarioConectado, usuarioDesconectado, getUsuarios, guardarMensaje, getSala, guardarSala, iniciarSala, finalizarSala } = require("../controller/socketController");
+const { usuarioConectado, usuarioDesconectado, getUsuarios, guardarMensaje, getSala, guardarSala, iniciarSala, finalizarSala, getTableSala, guardarTable, actualizarTable } = require("../controller/socketController");
 const { verificarJWT } = require("../helpers/jwt");
 
 io.on( 'connection', async ( client ) => {
@@ -39,6 +39,22 @@ io.on( 'connection', async ( client ) => {
         await iniciarSala( payload.uid );
         io.emit( 'sala-actualizada', payload );
     } );
+
+    client.on( 'ingresar-sala', async ( payload ) => {
+        const array_table = await getTableSala( payload.uid );
+        io.to( uid ).emit( 'ingresar-sala', array_table );
+    } );
+
+    client.on( 'agregar-table', async ( payload ) => {
+        const table = await guardarTable( payload );
+        io.emit( 'table-actualizado', table );
+    } );
+
+    client.on( 'actualizar-table', async ( payload ) => {
+        const table = await actualizarTable( payload );
+        io.emit( 'table-actualizado', table );
+    } );
+
 
     client.on( 'finalizar-sala', async ( payload ) => {
         await finalizarSala( payload.uid );

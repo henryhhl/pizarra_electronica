@@ -1,5 +1,5 @@
 
-.container {
+.containers {
     padding: 0;
     margin: 0;
     width: 100%;
@@ -24,6 +24,27 @@
     position: relative;
 }
 
+.inspectorDiagram {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    background-color: #5e6366;
+    width: 20%;
+    height: 100%;
+    display: block;
+}
+
+.pizarraDiagram {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: #5e6366;
+    width: 18%;
+    height: 40%;
+    display: block;
+}
+
 #diagramContainer .itemContainer {
     position: relative;
     width: 105px;
@@ -46,4 +67,33 @@
     align-items: center;
     border-top: 2px solid #E8E8E8;
     padding: 0 30px
+}
+
+.modalPrimeReact .p-dialog-header {
+    padding: 0 !important;
+    padding-left: 5px !important;
+    padding-bottom: 2px !important;
+    background-color: rgb(97, 84, 156) !important;
+    color: white !important;
+}
+
+.modalPrimeReact .p-dialog-footer {
+    padding: 0 !important;
+    padding-left: 5px !important;
+    padding-bottom: 2px !important;
+    background-color: rgb(97, 84, 156) !important;
+    color: white !important;
+    max-height: 100px !important;
+    overflow-y: auto;
+    display: flex;
+}
+
+[data-theme='compact'] .site-collapse-custom-collapse .site-collapse-custom-panel,
+.site-collapse-custom-collapse .site-collapse-custom-panel {
+  margin-bottom: 24px !important;
+  overflow: hidden !important;
+  border: 0px !important;
+  border-radius: 2px !important;
+  background-color: #5e6366 !important; 
+  color: #dddfde !important;
 }

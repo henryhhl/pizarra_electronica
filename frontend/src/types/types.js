@@ -8,4 +8,7 @@ export const types = {
 
     getSala: '[Sala] Salas Cargados',
     limpiarSala: '[Sala] Limpiar Cargados',
+
+    getTable: '[Table] Tables Cargados',
+    limpiarTable: '[Table] Limpiar Cargados',
 };

@@ -3,6 +3,7 @@ const Usuario = require( "../models/Usuario" );
 const Mensaje = require( "../models/Mensaje" );
 
 const Sala = require( "../models/Sala" );
+const Table = require( "../models/Tables" );
 
 const usuarioConectado = async ( uid ) => {
 
@@ -135,6 +136,35 @@ const getSala = async ( uid ) => {
     return salas;
 };
 
+const getTableSala = async ( uid ) => {
+
+    const tables = await Table.find( { fkidsalas: uid, } );
+    return tables;
+};
+
+const guardarTable = async (payload) => {
+    try {
+
+        const table = new Table( { nombre: "class", fkidsalas: payload.uid, left: payload.left, top: payload.top, } );
+        await table.save();
+        return table;
+
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
+const actualizarTable = async (payload) => {
+    const table = await Table.findById( payload.uid );
+    table.nombre = payload.nombre;
+    table.left = payload.left;
+    table.top = payload.top;
+    await table.save();
+
+    return table;
+}
+
 module.exports = {
     usuarioConectado,
     usuarioDesconectado,
@@ -144,4 +174,7 @@ module.exports = {
     guardarSala,
     iniciarSala,
     finalizarSala,
+    getTableSala,
+    guardarTable,
+    actualizarTable,
 };

@@ -17,6 +17,7 @@ const initialState = {
     apellido: null,
     usuario: null,
     email: null,
+    onOffLine: false,
 };
 
 export const AuthProvider = ( { children } ) => {
@@ -84,12 +85,21 @@ export const AuthProvider = ( { children } ) => {
                 apellido: null,
                 usuario: null,
                 email: null,
+                onOffLine: false,
             } );
             return false;
         }
 
         const resp = await fetchConToken( "/auth/newToken");
         console.log(resp);
+
+        if ( !resp ) {
+            setAuth( {
+                onOffLine: true,
+                checking: false,
+            } );
+            return false;
+        }
 
         if ( resp.response === 1 ) {
 
@@ -106,6 +116,7 @@ export const AuthProvider = ( { children } ) => {
                 apellido: usuario.apellido,
                 usuario: usuario.usuario,
                 email: usuario.email,
+                onOffLine: false,
             } );
 
             return true;
