@@ -6,6 +6,18 @@ const TablesSchema = new mongoose.Schema( {
     nombre: {
         type: String,
     },
+    subtitle: {
+        type: String,
+    },
+    descripcion: {
+        type: String,
+    },
+    background: {
+        type: String,
+    },
+    type: {
+        type: String,
+    },
     fkidsalas: {
         type: mongoose.Types.ObjectId,
         ref: "salas",
@@ -16,6 +28,14 @@ const TablesSchema = new mongoose.Schema( {
         required: true,
     },
     left: {
+        type: Number,
+        required: true,
+    },
+    width: {
+        type: Number,
+        required: true,
+    },
+    height: {
         type: Number,
         required: true,
     },

@@ -145,7 +145,13 @@ const getTableSala = async ( uid ) => {
 const guardarTable = async (payload) => {
     try {
 
-        const table = new Table( { nombre: "class", fkidsalas: payload.uid, left: payload.left, top: payload.top, } );
+        const table = new Table( { 
+            nombre: "Title", subtitle: "", descripcion: "",
+            fkidsalas: payload.uid, 
+            left: payload.left, top: payload.top, 
+            width: 150, height: 180, background: payload.background,
+            type: payload.type,
+        } );
         await table.save();
         return table;
 
@@ -158,8 +164,14 @@ const guardarTable = async (payload) => {
 const actualizarTable = async (payload) => {
     const table = await Table.findById( payload.uid );
     table.nombre = payload.nombre;
-    table.left = payload.left;
-    table.top = payload.top;
+    table.subtitle = payload.subtitle;
+    table.descripcion = payload.descripcion;
+
+    table.left = payload.left ? payload.left : table.left;
+    table.top = payload.top ? payload.top : table.top;
+    table.width = payload.width ? payload.width : table.width;
+    table.height = payload.height ? payload.height : table.height;
+
     await table.save();
 
     return table;

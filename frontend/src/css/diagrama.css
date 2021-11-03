@@ -30,7 +30,7 @@
     top: 0;
     right: 0;
     background-color: #5e6366;
-    width: 20%;
+    width: 200px;
     height: 100%;
     display: block;
 }
@@ -40,8 +40,8 @@
     left: 0;
     bottom: 0;
     background-color: #5e6366;
-    width: 18%;
-    height: 40%;
+    width: 180px;
+    height: 80%;
     display: block;
 }
 
@@ -75,6 +75,11 @@
     padding-bottom: 2px !important;
     background-color: rgb(97, 84, 156) !important;
     color: white !important;
+    /* border-radius: 100px/50px !important;
+    text-align: center !important;
+    border: 2px solid #e8e8e8 !important;
+    position: relative !important;
+    top: 35px !important; */
 }
 
 .modalPrimeReact .p-dialog-footer {
@@ -82,6 +87,53 @@
     padding-left: 5px !important;
     padding-bottom: 2px !important;
     background-color: rgb(97, 84, 156) !important;
+    color: white !important;
+    max-height: 100px !important;
+    overflow-y: auto;
+    display: flex;
+}
+
+.modalPrimeReact.circular .p-dialog-header {
+    padding: 0 !important;
+    padding-left: 5px !important;
+    padding-bottom: 2px !important;
+    background-color: rgb(97, 84, 156) !important;
+    color: white !important;
+    border-radius: 100px/50px !important;
+    text-align: center !important;
+    border: 2px solid #e8e8e8 !important;
+    position: relative !important;
+    top: 25px !important;
+}
+
+.modalPrimeReact.circular .p-dialog-footer {
+    padding: 0 !important;
+    padding-left: 5px !important;
+    padding-bottom: 2px !important;
+    background-color: rgb(97, 84, 156) !important;
+    color: white !important;
+    max-height: 100px !important;
+    overflow-y: auto;
+    display: flex;
+    border-bottom-left-radius: 20 !important;
+    border-bottom-right-radius: 20 !important;
+}
+
+
+
+.modalPrimeReact.darks .p-dialog-header {
+    padding: 0 !important;
+    padding-left: 5px !important;
+    padding-bottom: 2px !important;
+    background-color: #99A3A4 !important;
+    color: white !important;
+}
+
+.modalPrimeReact.darks .p-dialog-footer {
+    padding: 0 !important;
+    padding-left: 5px !important;
+    padding-bottom: 2px !important;
+    background-color: #99A3A4 !important;
     color: white !important;
     max-height: 100px !important;
     overflow-y: auto;

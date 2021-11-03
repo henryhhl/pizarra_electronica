@@ -219,8 +219,7 @@ export const HomePage = ( props ) => {
                     <Col xs={ { span: 24, } } sm={{ span: 12, }} md={{ span: 16, }}>
                         <Card title="Nueva Sala" style={{ width: '100%' }}>
                             <Row gutter={ [ 12, 8 ] }>
-                                <Col sm={{ span: 8, }}></Col>
-                                <Col xs={ { span: 24, } } sm={{ span: 8, }}>
+                                <Col xs={ { span: 24, } } sm={{ span: 24, }}>
                                     <Input 
                                         placeholder="iIngresar nombre de sala" 
                                         value={nombreSala} style={{ width: '100%', minWidth: '100%', }}
