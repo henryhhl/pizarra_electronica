@@ -119,6 +119,39 @@
     border-bottom-right-radius: 20 !important;
 }
 
+.modalPrimeReact.user .p-dialog-header {
+    padding: 0 !important;
+    padding-left: 5px !important;
+    padding-bottom: 2px !important;
+    background-color: rgb(97, 84, 156) !important;
+    color: white !important;
+
+    border-radius: 100px !important;
+    height: 70px !important;
+    width: 70px !important;
+    margin: auto !important;
+    text-align: center !important;
+    border: 2px solid transparent !important;
+    position: relative !important;
+    top: 15px !important;
+}
+
+.modalPrimeReact.user .p-dialog-footer {
+    padding: 0 !important;
+    padding-left: 5px !important;
+    padding-bottom: 2px !important;
+    background-color: rgb(97, 84, 156) !important;
+    color: white !important;
+    max-height: 100px !important;
+    overflow-y: auto;
+    display: flex;
+    border-bottom-left-radius: 20 !important;
+    border-bottom-right-radius: 20 !important;
+}
+.modalContentPrimeReact.user {
+    border-radius: 25px !important;
+}
+
 
 
 .modalPrimeReact.darks .p-dialog-header {

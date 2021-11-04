@@ -7,6 +7,8 @@ export const types = {
     limpiarChat: '[Chat] Limpiar Chat',
 
     getSala: '[Sala] Salas Cargados',
+    getSalaUsuario: '[Sala Usuario] Salas Usuarios Cargados',
+    limpiarSalaUsuario: '[Sala Usuario] Salas Usuarios Cargados',
     limpiarSala: '[Sala] Limpiar Cargados',
 
     getTable: '[Table] Tables Cargados',

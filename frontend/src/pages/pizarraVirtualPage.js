@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import '../css/diagrama.css';
 
 import { Button, Collapse, Input } from 'antd';
-import { useHistory } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
@@ -17,13 +17,15 @@ import { CloseOutlined } from '@ant-design/icons';
 import { TableContext } from '../context/table/TableContext';
 
 import { types } from '../types/types';
+// import { SalaContext } from '../context/sala/salaContext';
 
 const { Panel } = Collapse;
 
-export const PizarraVirtualPage = ( props ) => {
+const PizarraVirtualPage = ( props ) => {
 
     const { socket } = useContext( SocketContet );
     const { tableState, dispatchTable } = useContext( TableContext );
+    // const { salaState, dispatchSala } = useContext( SalaContext );
 
     const [ nombreSala, setNombreSala ] = useState('');
     const [ itemClass, setItemClass ] = useState(null);
@@ -60,7 +62,8 @@ export const PizarraVirtualPage = ( props ) => {
             uid: props.match.params.uidsala,
         } );
         dispatchTable( { type: types.limpiarTable } );
-        history.goBack();
+        // dispatchSala( { type: types.limpiarSalaUsuario, } );
+        history.push("/home");
     }
 
     function onChangeNombreClass(evt) {
@@ -88,6 +91,7 @@ export const PizarraVirtualPage = ( props ) => {
 
     return (
         <div className="containers">
+            <a href="/home" style={{ display: 'none', }} id="HomeInit"></a>
             <div id="diagramContainer">
                 { tableState.array_table.map( ( item, key ) => {
                     return (
@@ -108,9 +112,9 @@ export const PizarraVirtualPage = ( props ) => {
                                 border:  itemClass && itemClass.uid === item.uid && '2px solid red',
                             }} 
                             className={ `${item.type === "TP" ? "modalPrimeReact darks" : 
-                                item.type === "TB" ? "modalPrimeReact" : "modalPrimeReact circular" }` 
+                                item.type === "TB" ? "modalPrimeReact" : item.type === "C" ? "modalPrimeReact user" : "modalPrimeReact circular" }` 
                             } 
-                            contentClassName="fgd"
+                            contentClassName={ `${item.type === "C" && "modalContentPrimeReact user"}`}
                             closable={false} key={key} 
                             // footer={
                             //     <div style={{ 
@@ -281,7 +285,7 @@ export const PizarraVirtualPage = ( props ) => {
             <div className="pizarraDiagram">
                 <Collapse accordion defaultActiveKey={['1']}>
                     <Panel header={ 
-                            <span style={{ color: "#dddfde", fontSize: 12, fontWeight: '700', height: 30, }}> PIZARRA VIRTUAL </span> 
+                            <span style={{ color: "#dddfde", fontSize: 12, fontWeight: '700', height: 30, }}> Component 1 </span> 
                         } key="1" style={{ backgroundColor: "#414548", }}
                     >
                         <div 
@@ -316,7 +320,7 @@ export const PizarraVirtualPage = ( props ) => {
                     </Panel>
 
                     <Panel header={ 
-                            <span style={{ color: "#dddfde", fontSize: 12, fontWeight: '700', height: 30, }}> PIZARRA VIRTUAL </span> 
+                            <span style={{ color: "#dddfde", fontSize: 12, fontWeight: '700', height: 30, }}> Component 2 </span> 
                         } key="2" style={{ backgroundColor: "#414548", }}
                     >
                         <div 
@@ -349,7 +353,7 @@ export const PizarraVirtualPage = ( props ) => {
                         </div>
                     </Panel>
                     <Panel header={ 
-                            <span style={{ color: "#dddfde", fontSize: 12, fontWeight: '700', height: 30, }}> PIZARRA VIRTUAL </span> 
+                            <span style={{ color: "#dddfde", fontSize: 12, fontWeight: '700', height: 30, }}> Component 3 </span> 
                         } key="3" style={{ backgroundColor: "#414548", }}
                     >
                         <div 
@@ -392,6 +396,44 @@ export const PizarraVirtualPage = ( props ) => {
                             </div>
                         </div>
                     </Panel>
+                    <Panel header={ 
+                            <span style={{ color: "#dddfde", fontSize: 12, fontWeight: '700', height: 30, }}> Component 4 </span> 
+                        } key="4" style={{ backgroundColor: "#414548", }}
+                    >
+                        <div 
+                            style={{ 
+                                width: '80%', margin: 'auto', display: 'block', border: '1px solid rgb(246, 246, 246)', 
+                                color: "#dddfde", cursor: 'pointer', marginTop: 20,
+                            }}
+                            draggable id="NewTableDiagramC"
+                            onDragEnd={ ( evt ) => {
+                                var disx = evt.pageX;
+                                var disy = evt.pageY;
+                                socket.emit( 'agregar-table', {
+                                    uid: props.match.params.uidsala,
+                                    left: disx,
+                                    top: disy,
+                                    background: 'rgb(97, 84, 156)',
+                                    type: 'C',
+                                } );
+                            } } 
+                        >
+                            <div style={{ 
+                                height: 60, width: 60, margin: 'auto', backgroundColor: 'rgb(97, 84, 156)', 
+                                borderRadius: 100, marginBottom: 1,
+                                position: 'relative', top: 15,
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            }}>
+                                TITLE
+                            </div>
+                            <div style={{ 
+                                height: 60, backgroundColor: 'rgb(97, 84, 156)', 
+                                borderRadius: 10, paddingLeft: 5,  
+                            }}>
+                                
+                            </div>
+                        </div>
+                    </Panel>
 
                 </Collapse>
             </div>
@@ -406,3 +448,5 @@ export const PizarraVirtualPage = ( props ) => {
         </div>
     );
 };
+
+export default withRouter( PizarraVirtualPage );

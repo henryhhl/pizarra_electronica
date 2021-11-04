@@ -19,8 +19,15 @@ module.exports.io = require( "socket.io" )( server );
 require( "./sockets/socket" );
 
 
-const publicPath = path.resolve( __dirname, "./public" );
+const publicPath = path.resolve( __dirname, "../frontend/build" );
 app.use( express.static( publicPath ) );
+
+app.use('/auth/login', express.static( publicPath ));
+app.use('/auth/register', express.static( publicPath ));
+app.use('/home', express.static( publicPath ));
+app.use('/pizarra_virtual/:idsala', express.static( publicPath ));
+
+
 
 // cors
 app.use( cors() );

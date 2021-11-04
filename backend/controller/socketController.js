@@ -8,10 +8,13 @@ const Table = require( "../models/Tables" );
 const usuarioConectado = async ( uid ) => {
 
     const user = await Usuario.findById( uid );
-    user.online = true;
-    await user.save();
+    if ( user ) {
+        user.online = true;
+        await user.save();
 
-    return user;
+        return user;
+    }
+    return null;
 };
 
 const usuarioDesconectado = async ( uid ) => {

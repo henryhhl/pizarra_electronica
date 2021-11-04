@@ -224,6 +224,11 @@ export const HomePage = ( props ) => {
                                         placeholder="iIngresar nombre de sala" 
                                         value={nombreSala} style={{ width: '100%', minWidth: '100%', }}
                                         onChange={(evt) => setNombreSala(evt.target.value) } 
+                                        onKeyPress={ (evt) => {
+                                            if ( evt.key === "Enter" ) {
+                                                onSubmitSala();
+                                            }
+                                        } }
                                     />
                                 </Col>
                             </Row>

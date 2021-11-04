@@ -15,7 +15,7 @@ export const SocketContet = createContext();
 
 export const SocketProvider = ( { children } ) => {
 
-    const { conectarSocket, desconectarSocket, online, socket } = useSocket( "http://localhost:5000" );
+    const { conectarSocket, desconectarSocket, online, socket } = useSocket( "https://pizarra-virtual.herokuapp.com/" );
 
     const { auth } = useContext( AuthContext );
     const { dispatch } = useContext( ChatContext );

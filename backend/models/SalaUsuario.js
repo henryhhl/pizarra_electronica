@@ -13,6 +13,15 @@ const SalaUsuarioSchema = new mongoose.Schema( {
         ref: "salas",
         required: true,
     },
+    nombre: {
+        type: String,
+        required: true,
+    },
+    estado: {
+        type: String,
+        required: true,
+        default: "A",
+    },
     rol: {
         type: Boolean,
         required: true,

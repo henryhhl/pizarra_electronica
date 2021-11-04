@@ -7,7 +7,7 @@ import 'antd/dist/antd.css';
 
 import { HomePage } from '../pages/homePage';
 import { AppMain } from '../layouts/appMain';
-import { PizarraVirtualPage } from '../pages/pizarraVirtualPage';
+import PizarraVirtualPage from '../pages/pizarraVirtualPage';
 
 const history = createBrowserHistory();
 export const HomeRoute = () => {

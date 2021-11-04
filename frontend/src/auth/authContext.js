@@ -94,6 +94,7 @@ export const AuthProvider = ( { children } ) => {
         console.log(resp);
 
         if ( !resp ) {
+            localStorage.removeItem("token");
             setAuth( {
                 onOffLine: true,
                 checking: false,

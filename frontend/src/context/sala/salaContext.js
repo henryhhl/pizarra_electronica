@@ -6,6 +6,7 @@ export const SalaContext = createContext();
 
 const initialState = {
     array_sala: [],
+    array_usuario: [],
 };
 
 export const SalaProvider = ( { children } ) => {

@@ -15,6 +15,11 @@ io.on( 'connection', async ( client ) => {
     }
 
     const usuarioCon = await usuarioConectado( uid );
+
+    if ( !usuarioCon ) {
+        console.log( "Usuario no existe" );
+        return client.disconnect();
+    }
     
     // unir al usuario a una sala de socket
     client.join( uid );
@@ -74,7 +79,9 @@ io.on( 'connection', async ( client ) => {
     client.on( 'disconnect', async () => {
         console.log( "Cliente desconectado" );
         const usuarioDescon = await usuarioDesconectado( uid );
-        io.emit( 'getUsuario', await getUsuarios() );
+        if ( usuarioDescon ) {
+            io.emit( 'getUsuario', await getUsuarios() );
+        }
     } );
 
 } );
