@@ -1,6 +1,6 @@
 
-const baseUrl = "https://pizarra-virtual.herokuapp.com/api";
-// const baseUrl = "http://localhost:5000/api";
+// const baseUrl = "https://pizarra-virtual.herokuapp.com/api";
+const baseUrl = "http://localhost:5000/api";
 // const baseUrl = "/api";
 
 export const fetchSinToken = async ( endpoint, data, method = 'GET' ) => {
