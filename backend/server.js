@@ -41,7 +41,7 @@ app.use( "/api/usuario", require( "./routes/usuarioRoutes" ) );
 app.use( "/api/mensaje", require( "./routes/mensajeRoutes" ) );
 app.use( "/api/sala", require( "./routes/salaRoutes" ) );
 
-const PORT = process.env.PORT || 5000;
+const PORT = "https://pizarra-virtual.herokuapp.com";
 
 server.listen( PORT, ( error ) => {
     if ( error ) throw new Error(error);
